@@ -7,7 +7,7 @@ Note that both the API and the database are currently under development and are 
 
 TODO
 ----
-* Sketch out the API through documentation
+* Update the doc strings
 - Add some coding examples
 - Add tests
 - Implement the API
