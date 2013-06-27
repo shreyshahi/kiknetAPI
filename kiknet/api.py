@@ -12,7 +12,7 @@ All functions returns a list of list. Where each individual list contains data f
 
 def paramEquals(paramName, paramValue, paramsRequested = '', filterNoisy = True):
     '''
-    Returns the values of the requested parameters for each ground-motion in the database where the *paramName* parameter takes the value *paramValue*. A :py:class:`list` of :py:class:`dict` is returned by the function, where each :py:class:`dict` contains the parameter names and values for each ground-motion.
+    Returns the values of the requested parameters for each ground-motion in the database where the *paramName* parameter takes the value *paramValue*. A :func:`time.time` :py:mod:`list` of :py:mod:`dict` is returned by the function, where each :py:class:`dict` contains the parameter names and values for each ground-motion.
 
     :param paramName: Name of the parameter used to filter the records.
     :type paramName: str

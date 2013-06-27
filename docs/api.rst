@@ -3,7 +3,7 @@ API documentation
 
 .. module:: kiknet
 
-Main Interface
+Metadata Interface
 ---------------
 
 .. autofunction:: paramEquals
