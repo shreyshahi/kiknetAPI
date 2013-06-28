@@ -10,24 +10,27 @@ All functions returns a list of list. Where each individual list contains data f
 
 '''
 
-def paramEquals(paramName, paramValue, paramsRequested = '', filterNoisy = True):
+def paramEquals(paramName, paramValue, paramsRequested = [], filterNoisy = True):
     '''
-    Returns the values of the requested parameters for each ground-motion in the database where the *paramName* parameter takes the value *paramValue*. A list of dictionaries is returned by the function, where each dictionary contains the different parameter:value pairs for each ground motion.
+    Returns the values of the requested parameters for each ground-motion in the database where the *paramName* parameter is equal to *paramValue*. A list of dictionaries is returned by the function, where each dictionary contains the different parameter:value pairs for each ground motion.
 
     :param paramName: Name of the parameter used to filter the records.
     :type paramName: str
-    :param paramValue: The method will only return the data for records where paramName == paramValue
+    :param paramValue: The value that paramName must equal.
     :type paramValue: float
-    :param paramsRequested: A comma separated list of parameters that the function will return for each ground motion. The default value of this parameter (empty string) returns .... for each ground motion. The string '*' can be used to request all available metadata.
-    :type paramsRequested: str
+    :param paramsRequested: A list of parameters that the function will return for each ground motion. The default value of this parameter (empty list) returns the ground-motion number, moment magnitude, epicentral distance, Rjb, Vs30, aftershock flag for each ground motion. A list with string '*' can be used to request all available metadata.
+    :type paramsRequested: list(str)
     :param filterNoisy: The default True value for this boolean switch removes all low signal to noise ratio records from the result. Passing False will include noisy signals in the results.
     :type filterNoisy: bool
 
     Usage:
         >>> paramEquals('Mw',7.0)
-        [{.....},{.....}]
-        >>> paramEquals('Mw',7.0,'Mw,Repi')
-        [{.....},{.....}]
+        [{'gmNo':1, 'Mw':7.0, 'Repi':10.0, 'Rjb':8.0, 'Vs30':760.0, 'ASflag':0}, .... , {.....}] # Info for all ground motions with Mw == 7.0
+        >>> paramEquals('Mw',7.0,['Mw','Repi'])
+        [{'Mw':7.0 , 'Repi':10.0}, ... ,{.....}] # Only Mw and Repi for all ground motions with Mw == 7.0
+        >>> paramEquals('Mw',7.0,['*'])
+        [{'gmNo':1, 'Mw':7.0, 'Repi':10.0, 'Rjb':8.0, 'Vs30':760.0, 'ASflag':0 ......}, .... , {............}] # All available parameters for all ground motions with Mw == 7.0
+        
     '''
 
     return []
@@ -40,40 +43,40 @@ def paramLessThan(paramName, paramValue, paramsRequested = '', filterNoisy = Tru
     :type paramName: str
     :param paramValue: The method will only return the data for records where paramName < paramValue
     :type paramValue: float
-    :param paramsRequested: A comma separated list of parameters that the function will return for each ground motion. The default value of this parameter (empty string) returns .... for each ground motion. The string '*' can be used to request all available metadata.
-    :type paramsRequested: str
+    :param paramsRequested: A list of parameters that the function will return for each ground motion. The default value of this parameter (empty list) returns the ground-motion number, moment magnitude, epicentral distance, Rjb, Vs30, aftershock flag for each ground motion. A list with string '*' can be used to request all available metadata.
+    :type paramsRequested: list(str)
     :param filterNoisy: The default True value for this boolean switch removes all low signal to noise ratio records from the result. Passing False will include noisy signals in the results.
     :type filterNoisy: bool
 
     Usage:
-        >>> paramEquals('Mw',7.0)
-        [{.....},{.....}]
-        >>> paramEquals('Mw',7.0,'Mw,Repi')
-        [{.....},{.....}]
+        >>> paramLessThan('Mw',7.0)
+        [{'gmNo':1, 'Mw':6.9, 'Repi':10.0, 'Rjb':8.0, 'Vs30':760.0, 'ASflag':0}, .... , {.....}] # Info for all ground motions with Mw < 7.0
+        >>> paramLessThan('Mw',7.0,[],False)
+        [{'gmNo':1, 'Mw':6.9, 'Repi':10.0, 'Rjb':8.0, 'Vs30':760.0, 'ASflag':0}, .... , {.....}] # Info for all ground motions with Mw < 7.0, including low signal to noise ground motions
     '''
 
     return []
 
 def paramLessThanEquals(paramName, paramValue, paramsRequested = '', filterNoisy = True):
     '''
-    Returns the values of the requested parameters for each ground-motion in the database where the *paramName* parameter takes a value less than or equal to *paramValue*. A list of dictionaries is returned by the function, where each dictionary contains the different parameter:value pairs for each ground motion.
+    Returns the values of the requested parameters for each ground motion in the database where the *paramName* parameter takes a value less than or equal to *paramValue*. A list of dictionaries is returned by the function, where each dictionary contains the different parameter:value pairs for each ground motion.
 
     :param paramName: Name of the parameter used to filter the records.
     :type paramName: str
     :param paramValue: The method will only return the data for records where paramName <= paramValue
     :type paramValue: float
-    :param paramsRequested: A comma separated list of parameters that the function will return for each ground motion. The default value of this parameter (empty string) returns .... for each ground motion. The string '*' can be used to request all available metadata.
-    :type paramsRequested: str
+    :param paramsRequested: A list of parameters that the function will return for each ground motion. The default value of this parameter (empty list) returns the ground-motion number, moment magnitude, epicentral distance, Rjb, Vs30, aftershock flag for each ground motion. A list with string '*' can be used to request all available metadata.
+    :type paramsRequested: list(str)
     :param filterNoisy: The default True value for this boolean switch removes all low signal to noise ratio records from the result. Passing False will include noisy signals in the results.
     :type filterNoisy: bool
 
     Usage:
-        >>> paramEquals('Mw',7.0)
-        [{.....},{.....}]
-        >>> paramEquals('Mw',7.0,'Mw,Repi')
-        [{.....},{.....}]
+        >>> paramLessThanEquals('Mw',7.0)
+        [{'gmNo':1, 'Mw':6.9, 'Repi':10.0, 'Rjb':8.0, 'Vs30':760.0, 'ASflag':0}, .... , {.....}] # Info for all ground motions with Mw <= 7.0
+        >>> paramLessThanEquals('Mw',7.0,['*'],False)
+        [{'gmNo':1, 'Mw':6.9, 'Repi':10.0, 'Rjb':8.0, 'Vs30':760.0, 'ASflag':0, ............}, .... , {............}] # All available parameters for all ground motions with Mw <= 7.0, including low signal to noise ground motions.
     '''
-
+    
     return []
 
 def paramGreaterThan(paramName, paramValue, paramsRequested = '', filterNoisy = True):
