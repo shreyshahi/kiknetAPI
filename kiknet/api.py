@@ -159,7 +159,7 @@ def multiParamsInRange(paramNames, paramRanges, paramsRequested = [], filterNois
     
     return []
 
-def spectraForGmNos(gmNo, periods = [-1] , components = []):
+def spectraForGmNos(gmNo, periods = [] , components = []):
     '''
     Returns the 5% damped linear elastic response spectra for the list of ground motions specified by *gmNo* variable. The spectra is returned in a dictionary which contain the componentName:spectra pairs. componentName can take one of the following values:
         
@@ -174,7 +174,7 @@ def spectraForGmNos(gmNo, periods = [-1] , components = []):
 
     :param gmNo: A list of ground-motion numbers for which the spectra is needed.
     :type gmNo: list(int)
-    :param periods: A list of periods at which the spectra is computed. The default value is a list with -1 as the first element, this results in spectra being calculated at T = .... . A list with -2 as first element returns the spectra at all 105 available periods.
+    :param periods: A list of periods at which the spectra is computed. The default value is an empty list, this results in spectra being calculated at T = .... . A list with -1 as first element returns the spectra at all 105 available periods.
     :type periods: list(float)
     :param components: A list of components for which the spectra is needed. The user select any combination of S1, S2, S3, B1, B2, B3. The meaning of these names are described in the list above. The default value of this parameter is an empty list, which returns the EW and NS components of the surface motion.
     :type components: list(str)
