@@ -6,7 +6,7 @@
 kiknetAPI documentation
 =======================
 
-kiknetAPI is an open sourced :ref:`MIT Licensed <mit>` programming interface that wraps the kiknet database being developed by Haitham Dawood. This project aims to allow easy programatic access to the large database.
+kiknetAPI is an open sourced :ref:`MIT Licensed <mit>` programming interface that wraps a ground-motion database. The ground-motion database used here is a subset of the kiknet database being developed by Haitham Dawood. This project aims to allow easy programatic access to this large database.
 
 The project is under active development.
 

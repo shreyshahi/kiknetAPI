@@ -1,7 +1,7 @@
 API documentation
 =================
 
-The API exposes two sets of functions to access the metadata and the spectra for the ground motions in the database. This design naturally follows from the fact that spectra and rest of metadata are stored in two seperate databases. Further, for common use cases the metadata for a large number of ground motions is extracted first. A smaller subset is then selcted after examination of the metadata for which the spectra is extracted. The current design supports this two step workflow as noted at the end of this page. 
+The API exposes two sets of functions to access the metadata, and the spectra for the ground motions in the database. This design naturally follows from the fact that the the spectra, and the rest of metadata are stored in two seperate databases. Further, for common use cases the metadata for a large number of ground motions is extracted first. A smaller subset of recordings is then selcted after examination of the metadata, for which the spectra is extracted. The current design supports this two step workflow as noted at the end of this page. 
 
 .. module:: kiknet
 
