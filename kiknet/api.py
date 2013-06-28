@@ -16,7 +16,7 @@ def paramEquals(paramName, paramValue, paramsRequested = [], filterNoisy = True)
 
     :param paramName: Name of the parameter used to filter the records.
     :type paramName: str
-    :param paramValue: The value that paramName must equal.
+    :param paramValue: The value that *paramName* must equal.
     :type paramValue: float
     :param paramsRequested: A list of parameters that the function will return for each ground motion. The default value of this parameter (empty list) returns the ground-motion number, moment magnitude, epicentral distance, Rjb, Vs30, aftershock flag for each ground motion. A list with string '*' can be used to request all available metadata.
     :type paramsRequested: list(str)
@@ -41,7 +41,7 @@ def paramLessThan(paramName, paramValue, paramsRequested = '', filterNoisy = Tru
 
     :param paramName: Name of the parameter used to filter the records.
     :type paramName: str
-    :param paramValue: The method will only return the data for records where paramName < paramValue
+    :param paramValue: The value *paramName* should be less than.
     :type paramValue: float
     :param paramsRequested: A list of parameters that the function will return for each ground motion. The default value of this parameter (empty list) returns the ground-motion number, moment magnitude, epicentral distance, Rjb, Vs30, aftershock flag for each ground motion. A list with string '*' can be used to request all available metadata.
     :type paramsRequested: list(str)
@@ -63,7 +63,7 @@ def paramLessThanEquals(paramName, paramValue, paramsRequested = '', filterNoisy
 
     :param paramName: Name of the parameter used to filter the records.
     :type paramName: str
-    :param paramValue: The method will only return the data for records where paramName <= paramValue
+    :param paramValue: The value *paramName* should be less than or equal to.
     :type paramValue: float
     :param paramsRequested: A list of parameters that the function will return for each ground motion. The default value of this parameter (empty list) returns the ground-motion number, moment magnitude, epicentral distance, Rjb, Vs30, aftershock flag for each ground motion. A list with string '*' can be used to request all available metadata.
     :type paramsRequested: list(str)
@@ -85,87 +85,76 @@ def paramGreaterThan(paramName, paramValue, paramsRequested = '', filterNoisy = 
 
     :param paramName: Name of the parameter used to filter the records.
     :type paramName: str
-    :param paramValue: The method will only return the data for records where paramName > paramValue
+    :param paramValue: The value *paramName* should be greater than.
     :type paramValue: float
-    :param paramsRequested: A comma separated list of parameters that the function will return for each ground motion. The default value of this parameter (empty string) returns .... for each ground motion. The string '*' can be used to request all available metadata.
-    :type paramsRequested: str
+    :param paramsRequested: A list of parameters that the function will return for each ground motion. The default value of this parameter (empty list) returns the ground-motion number, moment magnitude, epicentral distance, Rjb, Vs30, aftershock flag for each ground motion. A list with string '*' can be used to request all available metadata.
+    :type paramsRequested: list(str)
     :param filterNoisy: The default True value for this boolean switch removes all low signal to noise ratio records from the result. Passing False will include noisy signals in the results.
     :type filterNoisy: bool
 
     Usage:
-        >>> paramEquals('Mw',7.0)
-        [{.....},{.....}]
-        >>> paramEquals('Mw',7.0,'Mw,Repi')
-        [{.....},{.....}]
+        >>> paramGreaterThan('Mw',7.0)
+        [{'gmNo':1, 'Mw':7.1, 'Repi':10.0, 'Rjb':8.0, 'Vs30':760.0, 'ASflag':0}, .... , {.....}] # Info for all ground motions with Mw > 7.0
     '''
 
     return []
 
 def paramGreaterThanEquals(paramName, paramValue, paramsRequested = '', filterNoisy = True):
-    '''
-    Returns the values of the requested parameters for each ground-motion in the database where the *paramName* parameter takes a value greater than or equal to *paramValue*. A list of dictionaries is returned by the function, where each dictionary contains the different parameter:value pairs for each ground motion.
+     '''
+    Returns the values of the requested parameters for each ground motion in the database where the *paramName* parameter takes a value greater than or equal to *paramValue*. A list of dictionaries is returned by the function, where each dictionary contains the different parameter:value pairs for each ground motion.
 
     :param paramName: Name of the parameter used to filter the records.
     :type paramName: str
-    :param paramValue: The method will only return the data for records where paramName <= paramValue
+    :param paramValue: The value *paramName* should be greater than or equal to.
     :type paramValue: float
-    :param paramsRequested: A comma separated list of parameters that the function will return for each ground motion. The default value of this parameter (empty string) returns .... for each ground motion. The string '*' can be used to request all available metadata.
-    :type paramsRequested: str
+    :param paramsRequested: A list of parameters that the function will return for each ground motion. The default value of this parameter (empty list) returns the ground-motion number, moment magnitude, epicentral distance, Rjb, Vs30, aftershock flag for each ground motion. A list with string '*' can be used to request all available metadata.
+    :type paramsRequested: list(str)
     :param filterNoisy: The default True value for this boolean switch removes all low signal to noise ratio records from the result. Passing False will include noisy signals in the results.
     :type filterNoisy: bool
 
     Usage:
-        >>> paramEquals('Mw',7.0)
-        [{.....},{.....}]
-        >>> paramEquals('Mw',7.0,'Mw,Repi')
-        [{.....},{.....}]
+        >>> paramGreaterThanEquals('Mw',7.0)
+        [{'gmNo':1, 'Mw':7.1, 'Repi':10.0, 'Rjb':8.0, 'Vs30':760.0, 'ASflag':0}, .... , {.....}] # Info for all ground motions with Mw >= 7.0
     '''
-
+    
     return []
 
 def paramInRange(paramName, paramRange, paramsRequested = '', filterNoisy = True):
     '''
-    Returns the values of the requested parameters for each ground-motion in the database where the *paramName* parameter takes a value within the range *paramValue*. A list of dictionaries is returned by the function, where each dictionary contains the different parameter:value pairs for each ground motion.
+    Returns the values of the requested parameters for each ground-motion in the database where the *paramName* parameter takes a value within the range *paramRange*. A list of dictionaries is returned by the function, where each dictionary contains the different parameter:value pairs for each ground motion.
 
     :param paramName: Name of the parameter used to filter the records.
     :type paramName: str
-    :param paramRange: A string following the format 'lowerLimit to upperLimit', where lowerLimit and upperLimit are real numbers. The method will only return the data for records where paramName is within the paramRange.
+    :param paramRange: A string following the format 'lowerLimit to upperLimit', where lowerLimit and upperLimit are real numbers (or '-inf'/'inf'). The method will only return the data for records where paramName is within the paramRange.
     :type paramValue: str
-    :param paramsRequested: A comma separated list of parameters that the function will return for each ground motion. The default value of this parameter (empty string) returns .... for each ground motion. The string '*' can be used to request all available metadata.
-    :type paramsRequested: str
+    :param paramsRequested: A list of parameters that the function will return for each ground motion. The default value of this parameter (empty list) returns the ground-motion number, moment magnitude, epicentral distance, Rjb, Vs30, aftershock flag for each ground motion. A list with string '*' can be used to request all available metadata.
+    :type paramsRequested: list(str)
     :param filterNoisy: The default True value for this boolean switch removes all low signal to noise ratio records from the result. Passing False will include noisy signals in the results.
     :type filterNoisy: bool
 
     Usage:
-        >>> paramEquals('Mw',7.0)
-        [{.....},{.....}]
-        >>> paramEquals('Mw',7.0,'Mw,Repi')
-        [{.....},{.....}]
+        >>> paramInRange('Mw','6.0 to 7.0')
+        [{.....},{.....}] # Info for all ground motions with 6.0 <= Mw <= 7.0
     '''
 
     return []
 
 def multiParamsInRange(paramNames, paramRanges, paramsRequested = '', filterNoisy = True):
     '''
-    Returns the values of the requested parameters for each ground-motion in the database where each parameter in the *paramNames* variable takes a value within the ranges defined by *paramValues*. A list of dictionaries is returned by the function, where each dictionary contains the different parameter:value pairs for each ground motion.
+    Returns the values of the requested parameters for each ground-motion in the database where each parameter in the *paramNames* variable takes a value within the ranges defined by *paramRanges* (i\ :sup:`th` *paramNames* will be within i\ :sup:`th` *paramRanges*). A list of dictionaries is returned by the function, where each dictionary contains the different parameter:value pairs for each ground motion.
 
-    :param paramNames: A comma seperated string of the names of the parameters used to filter the records.
-    :type paramName: str
-    :param paramRanges: A comma seperated string of following the format 'lowerLimit1 to upperLimit1 , lowerLimit2 to upperLimit2 , ... , lowerLimitN to upperLimitN', where lowerLimits and upperLimits are real numbers. The method will only return the data for records where paramName is within the paramRange.
-    :type paramValue: str
-    :param paramsRequested: A comma separated list of parameters that the function will return for each ground motion. The default value of this parameter (empty string) returns .... for each ground motion. The string '*' can be used to request all available metadata.
-    :type paramsRequested: str
+    :param paramNames: A list of the names of the parameters used to filter the records.
+    :type paramName: list(str)
+    :param paramRanges: A list of strings following the format ['lowerLimit1 to upperLimit1' , 'lowerLimit2 to upperLimit2' , ... , 'lowerLimitN to upperLimitN'], where lowerLimits and upperLimits are real numbers or '-inf'/'inf'. 
+    :type paramValue: list(str)
+    :param paramsRequested: A list of parameters that the function will return for each ground motion. The default value of this parameter (empty list) returns the ground-motion number, moment magnitude, epicentral distance, Rjb, Vs30, aftershock flag for each ground motion. A list with string '*' can be used to request all available metadata.
+    :type paramsRequested: list(str)
     :param filterNoisy: The default True value for this boolean switch removes all low signal to noise ratio records from the result. Passing False will include noisy signals in the results.
     :type filterNoisy: bool
 
-    .. note::
-        The i\ :sup:`th` parameter in paramNames will be checked to be withing the i\ :sup:`th` range in the paramRanges variable
-
     Usage:
-        >>> paramEquals('Mw',7.0)
-        [{.....},{.....}]
-        >>> paramEquals('Mw',7.0,'Mw,Repi')
-        [{.....},{.....}]
+        >>> multiParamsInRange(['Mw' , 'Repi'],['7.0 to inf' , '0 to 10'])
+        [{.....},{.....}] # Info for all ground motions recorded within 10 km of the epicenter and from events with magnituges greater than 7.0
     '''
 
     return []
@@ -185,10 +174,14 @@ def spectraForGmNos(gmNo, periods = [-1] , components = []):
 
     :param gmNo: A list of ground-motion numbers for which the spectra is needed.
     :type gmNo: list(int)
-    :param periods: A list of periods at which the spectra is computed. The default value is a list with -1 as the first element, this results in spectra being calculated at T = .... , a list with -2 as first element returns.
+    :param periods: A list of periods at which the spectra is computed. The default value is a list with -1 as the first element, this results in spectra being calculated at T = .... . A list with -2 as first element returns the spectra at all 105 available periods.
     :type periods: list(float)
     :param components: A list of components for which the spectra is needed. The user select any combination of S1, S2, S3, B1, B2, B3. The meaning of these names are described in the list above. The default value of this parameter is an empty list, which returns the EW and NS components of the surface motion.
     :type components: list(str)
+
+    Usage:
+        >>> spectraForGmNos([1,2])
+        {'S1':[ ... the EW surface spectra for gmNo 1 ...],[ ... the EW surface spectra for gmNo 5 ...]] , 'S2':[ ... the NS surface spectra for gmNo 1 ...],[ ... the NS surface spectra for gmNo 5 ...]]}
     '''
 
     return []
