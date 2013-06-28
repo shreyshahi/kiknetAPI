@@ -35,7 +35,7 @@ def paramEquals(paramName, paramValue, paramsRequested = [], filterNoisy = True)
     
     return []
 
-def paramLessThan(paramName, paramValue, paramsRequested = '', filterNoisy = True):
+def paramLessThan(paramName, paramValue, paramsRequested = [], filterNoisy = True):
     '''
     Returns the values of the requested parameters for each ground motion in the database where the *paramName* parameter takes a value less than *paramValue*. A list of dictionaries is returned by the function, where each dictionary contains the different parameter:value pairs for each ground motion.
 
@@ -57,7 +57,7 @@ def paramLessThan(paramName, paramValue, paramsRequested = '', filterNoisy = Tru
     
     return []
 
-def paramLessThanEquals(paramName, paramValue, paramsRequested = '', filterNoisy = True):
+def paramLessThanEquals(paramName, paramValue, paramsRequested = [], filterNoisy = True):
     '''
     Returns the values of the requested parameters for each ground motion in the database where the *paramName* parameter takes a value less than or equal to *paramValue*. A list of dictionaries is returned by the function, where each dictionary contains the different parameter:value pairs for each ground motion.
 
@@ -79,7 +79,7 @@ def paramLessThanEquals(paramName, paramValue, paramsRequested = '', filterNoisy
     
     return []
 
-def paramGreaterThan(paramName, paramValue, paramsRequested = '', filterNoisy = True):
+def paramGreaterThan(paramName, paramValue, paramsRequested = [], filterNoisy = True):
     '''
     Returns the values of the requested parameters for each ground motion in the database where the *paramName* parameter takes a value greater than *paramValue*. A list of dictionaries is returned by the function, where each dictionary contains the different parameter:value pairs for each ground motion.
 
@@ -99,7 +99,7 @@ def paramGreaterThan(paramName, paramValue, paramsRequested = '', filterNoisy = 
     
     return []
 
-def paramGreaterThanEquals(paramName, paramValue, paramsRequested = '', filterNoisy = True):
+def paramGreaterThanEquals(paramName, paramValue, paramsRequested = [], filterNoisy = True):
     '''
     Returns the values of the requested parameters for each ground motion in the database where the *paramName* parameter takes a value greater than or equal to *paramValue*. A list of dictionaries is returned by the function, where each dictionary contains the different parameter:value pairs for each ground motion.
 
@@ -119,7 +119,7 @@ def paramGreaterThanEquals(paramName, paramValue, paramsRequested = '', filterNo
     
     return []
 
-def paramInRange(paramName, paramRange, paramsRequested = '', filterNoisy = True):
+def paramInRange(paramName, paramRange, paramsRequested = [], filterNoisy = True):
     '''
     Returns the values of the requested parameters for each ground-motion in the database where the *paramName* parameter takes a value within the range *paramRange*. A list of dictionaries is returned by the function, where each dictionary contains the different parameter:value pairs for each ground motion.
 
@@ -139,7 +139,7 @@ def paramInRange(paramName, paramRange, paramsRequested = '', filterNoisy = True
     
     return []
 
-def multiParamsInRange(paramNames, paramRanges, paramsRequested = '', filterNoisy = True):
+def multiParamsInRange(paramNames, paramRanges, paramsRequested = [], filterNoisy = True):
     '''
     Returns the values of the requested parameters for each ground-motion in the database where each parameter in the *paramNames* variable takes a value within the ranges defined by *paramRanges* (i\ :sup:`th` *paramNames* will be within i\ :sup:`th` *paramRanges*). A list of dictionaries is returned by the function, where each dictionary contains the different parameter:value pairs for each ground motion.
 
