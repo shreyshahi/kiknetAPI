@@ -181,7 +181,7 @@ def spectraForGmNos(gmNo, periods = [] , components = []):
 
     Usage:
         >>> spectraForGmNos([1,2])
-        {'S1':[ ... the EW surface spectra for gmNo 1 ...],[ ... the EW surface spectra for gmNo 5 ...]] , 'S2':[ ... the NS surface spectra for gmNo 1 ...],[ ... the NS surface spectra for gmNo 5 ...]]}
+        {'S1':[[ ... the EW surface spectra for gmNo 1 ...],[ ... the EW surface spectra for gmNo 5 ...]] , 'S2':[[ ... the NS surface spectra for gmNo 1 ...],[ ... the NS surface spectra for gmNo 5 ...]]}
     '''
     
     return []
