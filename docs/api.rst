@@ -1,6 +1,8 @@
 API documentation
 =================
 
+The API exposes two sets of functions to access the metadata and the spectra for the ground motions in the database. This design naturally follows from the fact that spectra and rest of metadata are stored in two seperate databases. Further, for common use cases the metadata for a large number of ground motions is extracted first. A smaller subset is then selcted after examination of the metadata for which the spectra is extracted. The current design supports this two step workflow as noted at the end of this page. 
+
 .. module:: kiknet
 
 Metadata Interface
@@ -8,6 +10,10 @@ Metadata Interface
 The functions described below allows access to the metadata in the kiknet API.
 
 .. autofunction:: paramEquals
+
+.. note::
+    Haitham and Prof. Adrian, I am currently using Mw, Repi, Rjb, Vs30 and Aftershock flag as the default parameters. Let me know if you think I should add or remove from this list. Basically think of some common use cases and what parameters you will need to extract from the database most often.
+
 .. autofunction:: paramLessThan
 .. autofunction:: paramLessThanEquals
 .. autofunction:: paramGreaterThan
@@ -26,6 +32,6 @@ The functions described below allow us to extract the response spectra for parti
 
         kiknet.multiParamsInRange(['Mw','Repi'],['6 to 10','0 to 10'],['gmNo'])
     
-    This will give the gmNos for such ground motions. This list of gmNos can then be used as input to the spectraForGmNos to extract the spectra. So this can be accomplished in two steps.
+    This will give the gmNos for such ground motions. This list of gmNos can then be used as input to the spectraForGmNos to extract the spectra. Is there any use case where this will not work ?
 
 
