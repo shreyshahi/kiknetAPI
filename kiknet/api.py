@@ -126,7 +126,7 @@ def paramInRange(paramName, paramRange, paramsRequested = '', filterNoisy = True
     :param paramName: Name of the parameter used to filter the records.
     :type paramName: str
     :param paramRange: A string following the format 'lowerLimit to upperLimit', where lowerLimit and upperLimit are real numbers (or '-inf'/'inf'). The method will only return the data for records where paramName is within the paramRange.
-    :type paramValue: str
+    :type paramRange: str
     :param paramsRequested: A list of parameters that the function will return for each ground motion. The default value of this parameter (empty list) returns the ground-motion number, moment magnitude, epicentral distance, Rjb, Vs30, aftershock flag for each ground motion. A list with string '*' can be used to request all available metadata.
     :type paramsRequested: list(str)
     :param filterNoisy: The default True value for this boolean switch removes all low signal to noise ratio records from the result. Passing False will include noisy signals in the results.
@@ -144,9 +144,9 @@ def multiParamsInRange(paramNames, paramRanges, paramsRequested = '', filterNois
     Returns the values of the requested parameters for each ground-motion in the database where each parameter in the *paramNames* variable takes a value within the ranges defined by *paramRanges* (i\ :sup:`th` *paramNames* will be within i\ :sup:`th` *paramRanges*). A list of dictionaries is returned by the function, where each dictionary contains the different parameter:value pairs for each ground motion.
 
     :param paramNames: A list of the names of the parameters used to filter the records.
-    :type paramName: list(str)
+    :type paramNames: list(str)
     :param paramRanges: A list of strings following the format ['lowerLimit1 to upperLimit1' , 'lowerLimit2 to upperLimit2' , ... , 'lowerLimitN to upperLimitN'], where lowerLimits and upperLimits are real numbers or '-inf'/'inf'. 
-    :type paramValue: list(str)
+    :type paramRanges: list(str)
     :param paramsRequested: A list of parameters that the function will return for each ground motion. The default value of this parameter (empty list) returns the ground-motion number, moment magnitude, epicentral distance, Rjb, Vs30, aftershock flag for each ground motion. A list with string '*' can be used to request all available metadata.
     :type paramsRequested: list(str)
     :param filterNoisy: The default True value for this boolean switch removes all low signal to noise ratio records from the result. Passing False will include noisy signals in the results.
