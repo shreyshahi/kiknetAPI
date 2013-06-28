@@ -23,7 +23,7 @@ The functions described below allows access to the metadata in the kiknet API.
 
 Spectra Interface
 ------------------
-The functions described below allow us to extract the response spectra for particular ground motions. Note that the metadata and the spectra are stored in separate databases so they cannot be queried at the same time.
+The functions described below allow us to extract the response spectra for particular ground motions. Note that under the current design the metadata and the spectra cannot be queried at the same time.
 
 .. autofunction:: spectraForGmNos
 
