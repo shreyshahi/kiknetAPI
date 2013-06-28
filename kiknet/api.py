@@ -32,7 +32,7 @@ def paramEquals(paramName, paramValue, paramsRequested = [], filterNoisy = True)
         [{'gmNo':1, 'Mw':7.0, 'Repi':10.0, 'Rjb':8.0, 'Vs30':760.0, 'ASflag':0 ......}, .... , {............}] # All available parameters for all ground motions with Mw == 7.0
         
     '''
-
+    
     return []
 
 def paramLessThan(paramName, paramValue, paramsRequested = '', filterNoisy = True):
@@ -54,7 +54,7 @@ def paramLessThan(paramName, paramValue, paramsRequested = '', filterNoisy = Tru
         >>> paramLessThan('Mw',7.0,[],False)
         [{'gmNo':1, 'Mw':6.9, 'Repi':10.0, 'Rjb':8.0, 'Vs30':760.0, 'ASflag':0}, .... , {.....}] # Info for all ground motions with Mw < 7.0, including low signal to noise ground motions
     '''
-
+    
     return []
 
 def paramLessThanEquals(paramName, paramValue, paramsRequested = '', filterNoisy = True):
@@ -96,11 +96,11 @@ def paramGreaterThan(paramName, paramValue, paramsRequested = '', filterNoisy = 
         >>> paramGreaterThan('Mw',7.0)
         [{'gmNo':1, 'Mw':7.1, 'Repi':10.0, 'Rjb':8.0, 'Vs30':760.0, 'ASflag':0}, .... , {.....}] # Info for all ground motions with Mw > 7.0
     '''
-
+    
     return []
 
 def paramGreaterThanEquals(paramName, paramValue, paramsRequested = '', filterNoisy = True):
-     '''
+    '''
     Returns the values of the requested parameters for each ground motion in the database where the *paramName* parameter takes a value greater than or equal to *paramValue*. A list of dictionaries is returned by the function, where each dictionary contains the different parameter:value pairs for each ground motion.
 
     :param paramName: Name of the parameter used to filter the records.
@@ -136,7 +136,7 @@ def paramInRange(paramName, paramRange, paramsRequested = '', filterNoisy = True
         >>> paramInRange('Mw','6.0 to 7.0')
         [{.....},{.....}] # Info for all ground motions with 6.0 <= Mw <= 7.0
     '''
-
+    
     return []
 
 def multiParamsInRange(paramNames, paramRanges, paramsRequested = '', filterNoisy = True):
@@ -156,7 +156,7 @@ def multiParamsInRange(paramNames, paramRanges, paramsRequested = '', filterNois
         >>> multiParamsInRange(['Mw' , 'Repi'],['7.0 to inf' , '0 to 10'])
         [{.....},{.....}] # Info for all ground motions recorded within 10 km of the epicenter and from events with magnituges greater than 7.0
     '''
-
+    
     return []
 
 def spectraForGmNos(gmNo, periods = [-1] , components = []):
@@ -183,5 +183,5 @@ def spectraForGmNos(gmNo, periods = [-1] , components = []):
         >>> spectraForGmNos([1,2])
         {'S1':[ ... the EW surface spectra for gmNo 1 ...],[ ... the EW surface spectra for gmNo 5 ...]] , 'S2':[ ... the NS surface spectra for gmNo 1 ...],[ ... the NS surface spectra for gmNo 5 ...]]}
     '''
-
+    
     return []
