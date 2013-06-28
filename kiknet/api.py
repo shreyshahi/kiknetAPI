@@ -154,7 +154,7 @@ def multiParamsInRange(paramNames, paramRanges, paramsRequested = [], filterNois
 
     Usage:
         >>> multiParamsInRange(['Mw' , 'Repi'],['7.0 to inf' , '0 to 10'])
-        [{.....},{.....}] # Info for all ground motions recorded within 10 km of the epicenter and from events with magnituges greater than 7.0
+        [{.....},{.....}] # Info for all ground motions recorded within 10 km of the epicenter and from events with magnitudes greater than 7.0
     '''
     
     return []
