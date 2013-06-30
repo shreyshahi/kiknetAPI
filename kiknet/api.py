@@ -1,3 +1,5 @@
+import query
+
 '''
 
 The kiknet API
@@ -33,7 +35,7 @@ def paramEquals(paramName, paramValue, paramsRequested = [], filterNoisy = True)
         
     '''
     
-    return []
+    return multiParamsInRange([paramName] , ['%f to %f'%(paramValue,paramValue)] , paramsRequested , filterNoisy)
 
 def paramLessThan(paramName, paramValue, paramsRequested = [], filterNoisy = True):
     '''
@@ -55,7 +57,7 @@ def paramLessThan(paramName, paramValue, paramsRequested = [], filterNoisy = Tru
         [{'gmNo':1, 'Mw':6.9, 'Repi':10.0, 'Rjb':8.0, 'Vs30':760.0, 'ASflag':0}, .... , {.....}] # Info for all ground motions with Mw < 7.0, including low signal to noise ground motions
     '''
     
-    return []
+    return multiParamsInRange([paramName] , ['-inf to %f'%(paramValue - 1e-100)] , paramsRequested , filterNoisy)
 
 def paramLessThanEquals(paramName, paramValue, paramsRequested = [], filterNoisy = True):
     '''
@@ -77,7 +79,7 @@ def paramLessThanEquals(paramName, paramValue, paramsRequested = [], filterNoisy
         [{'gmNo':1, 'Mw':6.9, 'Repi':10.0, 'Rjb':8.0, 'Vs30':760.0, 'ASflag':0, ............}, .... , {............}] # All available parameters for all ground motions with Mw <= 7.0, including low signal to noise ground motions.
     '''
     
-    return []
+    return multiParamsInRange([paramName] , ['-inf to %f'%(paramValue)] , paramsRequested , filterNoisy)
 
 def paramGreaterThan(paramName, paramValue, paramsRequested = [], filterNoisy = True):
     '''
@@ -97,7 +99,7 @@ def paramGreaterThan(paramName, paramValue, paramsRequested = [], filterNoisy = 
         [{'gmNo':1, 'Mw':7.1, 'Repi':10.0, 'Rjb':8.0, 'Vs30':760.0, 'ASflag':0}, .... , {.....}] # Info for all ground motions with Mw > 7.0
     '''
     
-    return []
+    return multiParamsInRange([paramName] , ['%f to inf'%(paramValue + 1e-100)] , paramsRequested , filterNoisy)
 
 def paramGreaterThanEquals(paramName, paramValue, paramsRequested = [], filterNoisy = True):
     '''
@@ -117,7 +119,7 @@ def paramGreaterThanEquals(paramName, paramValue, paramsRequested = [], filterNo
         [{'gmNo':1, 'Mw':7.1, 'Repi':10.0, 'Rjb':8.0, 'Vs30':760.0, 'ASflag':0}, .... , {.....}] # Info for all ground motions with Mw >= 7.0
     '''
     
-    return []
+    return multiParamsInRange([paramName] , ['%f to inf'%(paramValue)] , paramsRequested , filterNoisy)
 
 def paramInRange(paramName, paramRange, paramsRequested = [], filterNoisy = True):
     '''
@@ -137,7 +139,7 @@ def paramInRange(paramName, paramRange, paramsRequested = [], filterNoisy = True
         [{.....},{.....}] # Info for all ground motions with 6.0 <= Mw <= 7.0
     '''
     
-    return []
+    return multiParamsInRange([paramName] , [paramRange] , paramsRequested , filterNoisy)
 
 def multiParamsInRange(paramNames, paramRanges, paramsRequested = [], filterNoisy = True):
     '''
