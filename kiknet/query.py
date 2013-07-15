@@ -13,7 +13,7 @@ def getParamsRequested(paramsRequested):
 
 	if paramsRequested[0] == "*":
 		params = []
-		with f as open('allParams.txt'):
+		with open('allParams.txt') as f:
 			for line in f:
 				params.append(line.strip())
 		return ','.join(params)
