@@ -1,4 +1,4 @@
-#import query
+import query
 
 '''
 
@@ -10,6 +10,8 @@ All functions returns a list of list. Where each individual list contains data f
 :copyright: (c) 2013 by Shrey K. Shahi, Haitham Dawood, and Adrian Rodriguez-Marek
 :license: MIT, see LICENCE for more details.
 
+TODO : 
+1) Add a function to select spectra based on IM
 '''
 
 def paramEquals(paramName, paramValue, paramsRequested = [], filterNoisy = True):
@@ -20,7 +22,7 @@ def paramEquals(paramName, paramValue, paramsRequested = [], filterNoisy = True)
     :type paramName: str
     :param paramValue: The value that *paramName* must equal.
     :type paramValue: float
-    :param paramsRequested: A list of parameters that the function will return for each ground motion. The default value of this parameter (empty list) returns the ground-motion number, moment magnitude, epicentral distance, Rjb, Vs30, aftershock flag for each ground motion. A list with string '*' can be used to request all available metadata.
+    :param paramsRequested: A list of parameters that the function will return for each ground motion. The default value of this parameter (empty list) returns the ground-motion number, moment magnitude, hypocentral depth, epicentral distance, hypocentral distance, Rrup, Vs30, aftershock flag, and event type for each ground motion. A list with string '*' can be used to request all available metadata.
     :type paramsRequested: list(str)
     :param filterNoisy: The default True value for this boolean switch removes all low signal to noise ratio records from the result. Passing False will include noisy signals in the results.
     :type filterNoisy: bool
@@ -159,7 +161,7 @@ def multiParamsInRange(paramNames, paramRanges, paramsRequested = [], filterNois
         [{.....},{.....}] # Info for all ground motions recorded within 10 km of the epicenter and from events with magnitudes greater than 7.0
     '''
     
-    return []
+    return query.multiParamsInRange(paramNames, paramRanges, paramsRequested, filterNoisy)
 
 def spectraForGmNos(gmNo, periods = [] , components = []):
     '''
