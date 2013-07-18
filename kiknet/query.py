@@ -1,4 +1,5 @@
 import sqlite3
+import os
 
 def processData(data , requestedParams):
 	processedData = []
@@ -21,7 +22,9 @@ def getParamsRequested(paramsRequested):
 	return ','.join(paramsRequested)
 
 def multiParamsInRange(paramNames, paramRanges, paramsRequested, filterNoisy):
-	conn = sqlite3.connect('./kiknet_flatfile.db')
+	this_dir, this_filename = os.path.split(__file__)
+	dataPath = os.path.join(this_dir,'kiknet_flatfile.db')
+	conn = sqlite3.connect(dataPath)
 	c = conn.cursor()
 
 	requestedParams = getParamsRequested(paramsRequested)
