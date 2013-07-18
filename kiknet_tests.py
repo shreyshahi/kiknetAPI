@@ -1,4 +1,5 @@
 import kiknet
+from itertools import izip
 
 def check_equals_returnsData(M):
 	data = kiknet.paramEquals('MwFnet',M,['gmNo' , 'MwFnet' , 'gmStatus4Components'])
@@ -93,3 +94,28 @@ def test_paramGreaterThanEquals():
 	Ms = [4.5 , 5.5 , 5.7 , 6.5 ,7.5]
 	for M in Ms:
 		yield 'check_paramGreaterThanEquals',M
+
+def check_range_returnsData(Mlow,Mhigh):
+	range = '%f to %f'%(Mlow,Mhigh)
+	data = kiknet.paramInRange('MwFnet',range,['gmNo' , 'MwFnet'])
+	assert len(data) > 0
+
+def test_range_returnsData():
+	Mlows = [4.0,4.5,5.0,5.5,6.0]
+	Mhighs = [4.5 , 5.0 , 5.5 , 6.0 , 7]
+	for Mlow,Mhigh in izip(Mlows,Mhighs):
+		yield 'check_range_returnsData',Mlow,Mhigh
+
+def check_paramInRange(Mlow,Mhigh):
+	range = '%f to %f'%(Mlow,Mhigh)
+	data = kiknet.paramInRange('MwFnet',range,['gmNo' , 'MwFnet'])
+	Ms_greaterThan = [d['MwFnet'] > Mhigh for d in data]
+	Ms_lessThan = [d['MwFnet'] < Mlow for d in data]
+	assert not any(Ms_greaterThan)
+	assert not any(Ms_lessThan)
+
+def test_paramInRange():
+	Mlows = [4.0,4.5,5.0,5.5,6.0]
+	Mhighs = [4.5 , 5.0 , 5.5 , 6.0 , 7]
+	for Mlow,Mhigh in izip(Mlows,Mhighs):
+		yield 'check_paramInRange',Mlow,Mhigh
