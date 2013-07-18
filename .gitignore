@@ -36,3 +36,6 @@ nosetests.xml
 
 # Documentation
 docs/_build
+
+#Database
+*.db
