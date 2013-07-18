@@ -39,7 +39,7 @@ def multiParamsInRange(paramNames, paramRanges, paramsRequested, filterNoisy):
 
 	allConditions = ' AND '.join(conditions)
 
-	queryText = 'SELECT ' + requestedParams + ' FROM tableName WHERE ' + allConditions
+	queryText = 'SELECT ' + requestedParams + ' FROM flatfile WHERE ' + allConditions
 	c.execute(queryText)
-	data = c.fetchAll()
+	data = c.fetchall()
 	return processData(data , requestedParams)
