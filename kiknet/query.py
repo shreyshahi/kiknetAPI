@@ -35,7 +35,7 @@ def multiParamsInRange(paramNames, paramRanges, paramsRequested, filterNoisy):
 		rangeText = rangeText.split('to')
 		ranges = [float(rangeText[0].strip()) , float(rangeText[1].strip())]
 		if ranges[0] == float('-inf'):
-			queryText = '(%s <= %f)'%(paramName , ranges[1])
+			queryText = '(%s <= %f) AND (%s != -999)'%(paramName , ranges[1] , paramName)
 		elif ranges[1] == float('inf'):
 			queryText = '(%s >= %f)'%(paramName , ranges[0])
 		else:
