@@ -111,11 +111,50 @@ def check_paramInRange(Mlow,Mhigh):
 	data = kiknet.paramInRange('MwFnet',range,['gmNo' , 'MwFnet'])
 	Ms_greaterThan = [d['MwFnet'] > Mhigh for d in data]
 	Ms_lessThan = [d['MwFnet'] < Mlow for d in data]
+	Ms_999 = [d['MwFnet'] == -999 for d in data]
 	assert not any(Ms_greaterThan)
 	assert not any(Ms_lessThan)
+	assert not any(Ms_999)
 
 def test_paramInRange():
-	Mlows = [4.0,4.5,5.0,5.5,6.0]
-	Mhighs = [4.5 , 5.0 , 5.5 , 6.0 , 7]
+	Mlows = [4.0,4.5,5.0,5.5,float('-inf')]
+	Mhighs = [4.5 , 5.0 , float('inf') , 6.0 , 7]
 	for Mlow,Mhigh in izip(Mlows,Mhighs):
 		yield 'check_paramInRange',Mlow,Mhigh
+
+def check_multiParamsInRange_returnsData(Mlow,Mhigh,Rlow,Rhigh):
+	ranges = ['%s to %s'%(Mlow,Mhigh) , '%s to %s'%(Rlow,Rhigh)]
+	data = kiknet.multiParamsInRange(['MwFnet','RhypFnetMtDepth'],ranges,['gmNo','MwFnet','RhypFnetMtDepth'])
+	assert len(data) > 0
+
+def test_multiParamsInRange_returnsData():
+	Rlows = ['0','-1','50','200','-inf']
+	Rhighs = ['10' , '100' , '100' , 'inf' , '100']
+	Mlows = ['0' , '5', '-inf', '6' , '7']
+	Mhighs = ['inf' , '6' , '4' ,'7' , '100']
+	for Mlow,Mhigh,Rlow,Rhigh in izip(Mlows,Mhighs,Rlows,Rhighs):
+		yield 'check_multiParamsInRange_returnsData',Mlow,Mhigh,Rlow,Rhigh
+
+def check_multiParamsInRange(Mlow,Mhigh,Rlow,Rhigh):
+	ranges = ['%s to %s'%(Mlow,Mhigh) , '%s to %s'%(Rlow,Rhigh)]
+	data = kiknet.multiParamsInRange(['MwFnet','RhypFnetMtDepth'],ranges,['gmNo','MwFnet','RhypFnetMtDepth'])
+	Ms_lessThan = [d['MwFnet'] < float(Mlow) for d in data]
+	Ms_greaterThan = [d['MwFnet'] > float(Mhigh) for d in data]
+	Rs_lessThan = [d['RhypFnetMtDepth'] < float(Rlow) for d in data]
+	Rs_greaterThan = [d['RhypFnetMtDepth'] > float(Rhigh) for d in data]
+	Ms_999 = [d['MwFnet'] == -999 for d in data]
+	Rs_999 = [d['RhypFnetMtDepth'] == -999 for d in data]
+	assert not any(Ms_lessThan)
+	assert not any(Ms_greaterThan)
+	assert not any(Rs_lessThan)
+	assert not any(Rs_greaterThan)
+	assert not any(Ms_999)
+	assert not any(Rs_999)
+
+def test_multiParamsInRange():
+	Rlows = ['0','-1','50','200','-inf']
+	Rhighs = ['10' , '100' , '100' , 'inf' , '100']
+	Mlows = ['0' , '5', '-inf', '6' , '7']
+	Mhighs = ['inf' , '6' , '4' ,'7' , '100']
+	for Mlow,Mhigh,Rlow,Rhigh in izip(Mlows,Mhighs,Rlows,Rhighs):
+		yield 'check_multiParamsInRange',Mlow,Mhigh,Rlow,Rhigh
