@@ -64,23 +64,33 @@ def getRequestedPeriods(periods):
 	return requestedPeriods
 
 def buildGmNosCondition(gmNos):
-	questionMarks = ','.join(['?']*len(gnNos))
-	return 'WHERE gmNo IN ' + questionMarks
+	questionMarks = ','.join(['?']*len(gmNos))
+	return 'WHERE gmNo IN (' + questionMarks + ')'
 
-def buildSpectraForGmNos(gmNos,component,requestedPeriods,whereClause):
+def buildSpectraForGmNos(gmNos,component,requestedPeriods,whereClause,c):
 	if component == 'MS':
 		# Find the EW and NS surface spectra and sort by gmNo 
-		spec1 = buildSpectraForGmNos(gmNos,'S1',requestedPeriods,whereClause).sort(key = lambda x: x[0])
-		spec2 = buildSpectraForGmNos(gmNos,'S2',requestedPeriods,whereClause).sort(key = lambda x: x[0])
+		spec1 = buildSpectraForGmNos(gmNos,'S1',requestedPeriods,whereClause,c)
+		spec2 = buildSpectraForGmNos(gmNos,'S2',requestedPeriods,whereClause,c)
 		# return the geometric mean of the two spectra
 		return [[ (spec1[i][j] * spec2[i][j])**0.5  for j in xrange(len(spec1[0]))] for i in xrange(len(spec1))]
 
 	if component == 'MB':
 		# Find the EW and NS borehole spectra and sort by gmNo 
-		spec1 = buildSpectraForGmNos(gmNos,'B1',requestedPeriods,whereClause).sort(key = lambda x: x[0])
-		spec2 = buildSpectraForGmNos(gmNos,'B2',requestedPeriods,whereClause).sort(key = lambda x: x[0])
+		spec1 = buildSpectraForGmNos(gmNos,'B1',requestedPeriods,whereClause,c)
+		spec2 = buildSpectraForGmNos(gmNos,'B2',requestedPeriods,whereClause,c)
 		# return the geometric mean of the two spectra
 		return [[ (spec1[i][j] * spec2[i][j])**0.5  for j in xrange(len(spec1[0]))] for i in xrange(len(spec1))]
+
+	componentTranslate = {'S1':'EW2' , 'S2':'NS2' , 'S3':'UD2' , 'B1':'EW1' , 'B2':'NS1' , 'B3':'UD1'}
+	prefix = componentTranslate[component] + '_'
+	selectClause = 'SELECT gmNo,' + ','.join([prefix + r for r in requestedPeriods])
+	queryText = selectClause + ' ' + whereClause
+	c.execute(queryText%tuple(gmNos))
+	spectra = c.fetchall()
+	spectra = [list(s) for s in spectra]
+	return spectra.sort(key = lambda x: x[0])
+
 
 def spectraForGmNos(gmNos , periods , components):
 	this_dir, this_filename = os.path.split(__file__)
@@ -96,7 +106,6 @@ def spectraForGmNos(gmNos , periods , components):
 
 	spectra = {}
 	for component in components:
-		spectra[component] = buildSpectraForGmNos(gmNos,component,requestedPeriods , whereClause)
+		spectra[component] = buildSpectraForGmNos(gmNos,component,requestedPeriods , whereClause , c)
 
 	return spectra
-
