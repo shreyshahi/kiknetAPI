@@ -158,3 +158,33 @@ def test_multiParamsInRange():
 	Mhighs = ['inf' , '6' , '4' ,'7' , '100']
 	for Mlow,Mhigh,Rlow,Rhigh in izip(Mlows,Mhighs,Rlows,Rhighs):
 		yield 'check_multiParamsInRange',Mlow,Mhigh,Rlow,Rhigh
+
+def checkSpectraForGmNos(gmNos,periods,components):
+	data = kiknet.spectraForGmNos(gmNos,periods,components)
+	# Check that data is returned
+	dataPresent = [len(data[d]) > 0 for d in data]
+	assert all(dataPresent)
+	periodsPresent = [len(s) for d in data for s in data[d]]
+	# check that name of dict keys are same as component list
+	if components == []:
+		components = ['MS']
+	assert data.keys().sort() == components.sort()
+	# check that the number of periods returned is same as requested
+	if periods == []:
+		periods = [0]*24
+	if periods[0] == -1:
+		periods = [0]*105
+	sameNumberOfPeriods = [len(s)-1 == len(periods) for d in data for s in data[d]]
+	assert all(sameNumberOfPeriods)
+	# check that the same gmNos are returnes
+	returnedGmNos = [[s[0] for s in data[d]] for d in data]
+	gmNos.sort()
+	sameGmNos = [gm == gmNos for gm in returnedGmNos]
+	assert all(sameGmNos)
+
+def testSpectraForGmNos():
+	gmNos = [[3] , [3,4,5,6] , [31,32,33,34] , [41,42] , [45,46,47]]
+	periods = [[] , [-1,1] , [1,2,3,4] , [0.01,1] , [0.05]]
+	components = [['MS'],[],['MS','MB'],['S1','S2','S3'],['B1','B2','B3']]
+	for gmNo , per , comp in izip(gmNos,periods,components):
+		yield 'checkSpectraForGmNos' , gmNo , per , comp
