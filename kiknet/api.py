@@ -163,10 +163,12 @@ def multiParamsInRange(paramNames, paramRanges, paramsRequested = [], filterNois
     
     return query.multiParamsInRange(paramNames, paramRanges, paramsRequested, filterNoisy)
 
-def spectraForGmNos(gmNo, periods = [] , components = []):
+def spectraForGmNos(gmNos, periods = [] , components = []):
     '''
     Returns the 5% damped linear elastic response spectra for the list of ground motions specified by *gmNo* variable. The spectra is returned in a dictionary which contain the componentName:spectra pairs. componentName can take one of the following values:
         
+        #. MS - Geometric mean of the horizontal component.
+        #. MB - Geometric mean of the borehole component.
         #. S1 - EW component of the surface record.
         #. S2 - NS component of the surface record.
         #. S3 - Vertical component of the surface record.
@@ -176,11 +178,11 @@ def spectraForGmNos(gmNo, periods = [] , components = []):
 
     The spectra for each component is represent by a list of list. Where each individual list contains the spectral ordinates for each ground motion. The spectral values follow the order of the periods in the *periods* variable. Also the spectra lists follow the order of ground motions in the *gmNo* list.
 
-    :param gmNo: A list of ground-motion numbers for which the spectra is needed.
-    :type gmNo: list(int)
-    :param periods: A list of periods at which the spectra is computed. The default value is an empty list, this results in spectra being calculated at T = .... . A list with -1 as first element returns the spectra at all 105 available periods.
+    :param gmNos: A list of ground-motion numbers for which the spectra is needed.
+    :type gmNos: list(int)
+    :param periods: A list of periods at which the spectra is computed. The default value is an empty list, this results in spectra being calculated at T = [0.01 , 0.02 , 0.03 , 0.04 , 0.05 , 0.075 , 0.1 , 0.15 , 0.2 , 0.25 , 0.3 , 0.4 , 0.5 , 0.6 , 0.75 , 1 , 1.5 , 2 , 3 , 4 , 5 , 6 , 7.5 , 10] . A list with -1 as first element returns the spectra at all 105 available periods.
     :type periods: list(float)
-    :param components: A list of components for which the spectra is needed. The user select any combination of S1, S2, S3, B1, B2, B3. The meaning of these names are described in the list above. The default value of this parameter is an empty list, which returns the EW and NS components of the surface motion.
+    :param components: A list of components for which the spectra is needed. The user select any combination of S1, S2, S3, B1, B2, B3. The meaning of these names are described in the list above. The default value of this parameter is an empty list, which returns the sqrt(EW * NS) of the surface motion.
     :type components: list(str)
 
     Usage:
@@ -188,4 +190,4 @@ def spectraForGmNos(gmNo, periods = [] , components = []):
         {'S1':[[ ... the EW surface spectra for gmNo 1 ...],[ ... the EW surface spectra for gmNo 5 ...]] , 'S2':[[ ... the NS surface spectra for gmNo 1 ...],[ ... the NS surface spectra for gmNo 5 ...]]}
     '''
     
-    return []
+    return query.spectraForGmNos(gmNos,periods,components)
