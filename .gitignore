@@ -42,3 +42,4 @@ docs/_build
 
 #Mac files
 *.DS_Store
+*.sublime-workspace
