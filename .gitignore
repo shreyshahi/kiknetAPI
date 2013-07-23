@@ -39,3 +39,6 @@ docs/_build
 
 #Database
 *.db
+
+#Mac files
+*.DS_Store
