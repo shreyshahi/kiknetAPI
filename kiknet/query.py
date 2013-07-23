@@ -61,7 +61,7 @@ def getRequestedPeriods(periods):
 		requestedPeriods = [str(p) for p in periods]
 
 	requestedPeriods = [str(p) for p in requestedPeriods]
-	requestedPeriods = [(p if ('.' in p) else p+'.0') for p in requestedPeriods]
+	requestedPeriods = [(p if ('.' in p) or (p in ['pgv','pga','pgd']) else p+'.0') for p in requestedPeriods]
 	requestedPeriods = [p.replace('.','_') for p in requestedPeriods]
 	return requestedPeriods
 

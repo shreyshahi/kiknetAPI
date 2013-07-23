@@ -188,3 +188,11 @@ def testSpectraForGmNos():
 	components = [['MS'],[],['MS','MB'],['S1','S2','S3'],['B1','B2','B3']]
 	for gmNo , per , comp in izip(gmNos,periods,components):
 		yield 'checkSpectraForGmNos' , gmNo , per , comp
+
+def testParticularSpectra():
+	spectra = kiknet.spectraForGmNos([2] , ['pga',0.02,0.03] , ['B1'])
+	print spectra['B1']
+	assert spectra['B1'] == [[2,0.00038584,0.00039089,0.00040397]]
+
+	spectra = kiknet.spectraForGmNos([2,5] , ['pga',0.02,0.03] , ['B1'])
+	assert spectra['B1'] == [[2,0.00038584,0.00039089,0.00040397] , [5,0.0021254,0.0021487,0.002182]]
