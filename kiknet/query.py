@@ -10,7 +10,7 @@ def processData(data , requestedParams):
 
 def getParamsRequested(paramsRequested):
 	if len(paramsRequested) == 0:
-		return 'gmno , MeFnet , Rrup1simulations , Rrup2simulations , RrupPublishedSource , RhypFnetMtDepth , RepiFnet , MTDepthFnet , eqCategory , Vs30 , foreAfterShockInClusterReasenberg'
+		return 'gmno , MwFnet , Rrup1simulations , Rrup2simulations , RrupPublishedSource , RhypFnetMtDepth , RepiFnet , MTDepthFnet , eqCategory , Vs30 , foreAfterShockInClusterReasenberg'
 
 	if paramsRequested[0] == "*":
 		params = []
@@ -71,14 +71,14 @@ def buildGmNosCondition(gmNos):
 
 def buildSpectraForGmNos(gmNos,component,requestedPeriods,whereClause,c):
 	if component == 'MS':
-		# Find the EW and NS surface spectra and sort by gmNo 
+		# Find the EW and NS surface spectra and sort by gmNo
 		spec1 = buildSpectraForGmNos(gmNos,'S1',requestedPeriods,whereClause,c)
 		spec2 = buildSpectraForGmNos(gmNos,'S2',requestedPeriods,whereClause,c)
 		# return the geometric mean of the two spectra
 		return [[ ( (spec1[i][j] * spec2[i][j])**0.5 if not j == 0 else spec1[i][j])  for j in xrange(len(spec1[0]))] for i in xrange(len(spec1))] # if else clause to prevent taking the geo mean of gmNo and turning it into a float
 
 	if component == 'MB':
-		# Find the EW and NS borehole spectra and sort by gmNo 
+		# Find the EW and NS borehole spectra and sort by gmNo
 		spec1 = buildSpectraForGmNos(gmNos,'B1',requestedPeriods,whereClause,c)
 		spec2 = buildSpectraForGmNos(gmNos,'B2',requestedPeriods,whereClause,c)
 		# return the geometric mean of the two spectra
@@ -86,7 +86,7 @@ def buildSpectraForGmNos(gmNos,component,requestedPeriods,whereClause,c):
 
 	componentTranslate = {'S1':'EW2' , 'S2':'NS2' , 'S3':'UD2' , 'B1':'EW1' , 'B2':'NS1' , 'B3':'UD1'}
 	prefix = componentTranslate[component] + '_'
-	selectClause = 'SELECT gmNo,' + ','.join([prefix + r for r in requestedPeriods])
+	selectClause = 'SELECT gmNo, maxT,' + ','.join([prefix + r for r in requestedPeriods])
 	queryText = selectClause + ' FROM spectra ' + whereClause
 	c.execute(queryText,tuple(gmNos))
 	spectra = c.fetchall()
