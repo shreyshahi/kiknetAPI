@@ -4,6 +4,7 @@ import os
 def processData(data , requestedParams):
 	processedData = []
 	requestedParams = requestedParams.split(',')
+	requestedParams = [param.strip() for param in requestedParams]
 	processedData = [dict(zip(requestedParams , d)) for d in data]
 	return processedData
 
@@ -43,7 +44,7 @@ def multiParamsInRange(paramNames, paramRanges, paramsRequested, filterNoisy):
 		conditions.append(queryText)
 
 	if filterNoisy:
-		conditions.append('(gmStatus4Components == 1)')
+		conditions.append('(gmStatus4Components == 0)')
 
 	allConditions = ' AND '.join(conditions)
 
